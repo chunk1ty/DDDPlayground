@@ -17,6 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5EC2AF5C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{5A1C5CCC-1B75-41F5-95B3-5E97017A1C64}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{08424AAD-30F3-4180-8315-956140F227CC}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "tests\IntegrationTests\IntegrationTests.csproj", "{0348830F-67C5-4C2D-B8C7-B9D658978FD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +50,10 @@ Global
 		{5A1C5CCC-1B75-41F5-95B3-5E97017A1C64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A1C5CCC-1B75-41F5-95B3-5E97017A1C64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A1C5CCC-1B75-41F5-95B3-5E97017A1C64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0348830F-67C5-4C2D-B8C7-B9D658978FD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0348830F-67C5-4C2D-B8C7-B9D658978FD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0348830F-67C5-4C2D-B8C7-B9D658978FD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0348830F-67C5-4C2D-B8C7-B9D658978FD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +64,7 @@ Global
 		{CCD29835-F958-4B84-8835-2FBCA0EA47D0} = {956C8AB4-276A-4982-A415-5888F774D075}
 		{857289C4-D60B-495F-AAEA-DE6D9A0317BD} = {956C8AB4-276A-4982-A415-5888F774D075}
 		{5A1C5CCC-1B75-41F5-95B3-5E97017A1C64} = {5EC2AF5C-41FD-4DD4-8B1F-E019712D1537}
+		{0348830F-67C5-4C2D-B8C7-B9D658978FD5} = {5EC2AF5C-41FD-4DD4-8B1F-E019712D1537}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6394E755-D1F5-4709-B9EA-3C11A13BBCA6}

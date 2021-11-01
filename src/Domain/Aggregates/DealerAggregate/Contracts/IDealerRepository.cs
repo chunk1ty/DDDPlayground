@@ -1,6 +1,7 @@
 ﻿namespace Domain.Aggregates.DealerAggregate.Contracts
 {
-    interface IDealerRepository
+    public interface IDealerRepository
     {
+        Dealer GetById(int id);
     }
 }

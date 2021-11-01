@@ -6,13 +6,18 @@ namespace Domain.Aggregates.CarAdAggregate
 {
     public class CarAd : Entity<int>, IAggregateRoot 
     {
+        // used by EF
+        protected CarAd()
+        {
+
+        }
+
         public CarAd(Manufacturer manufacturer,
                      string model,
                      Category category,
                      string imageUrl,
                      decimal pricePerDay,
-                     Options options,
-                     bool isAvailable)
+                     Options options)
         {
             Validate(model, imageUrl, pricePerDay);
 
@@ -22,7 +27,7 @@ namespace Domain.Aggregates.CarAdAggregate
             ImageUrl = imageUrl;
             PricePerDay = pricePerDay;
             Options = options;
-            IsAvailable = isAvailable;
+            IsAvailable = true;
 
             AddDomainEvent(new CarAdCreatedDomainEvent(this));
         }

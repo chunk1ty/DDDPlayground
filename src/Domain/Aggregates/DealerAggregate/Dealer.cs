@@ -11,12 +11,16 @@ namespace Domain.Aggregates.DealerAggregate
     {
         private readonly HashSet<CarAd> _carAds;
 
-        public Dealer(string name, PhoneNumber phoneNumber)
+        // used by EF
+        protected Dealer()
+        {
+            _carAds = new HashSet<CarAd>();
+        }
+
+        public Dealer(string name, PhoneNumber phoneNumber) : this()
         {
             Name = Guard.Against.StringLength(name, nameof(name), 2, 20);
             PhoneNumber = phoneNumber;
-
-            _carAds = new HashSet<CarAd>();
 
             AddDomainEvent(new DealerCreatedDomainEvent(this));
         }
