@@ -1,7 +1,10 @@
-﻿namespace Domain.Aggregates.DealerAggregate.Contracts
+﻿using System.Threading.Tasks;
+using System.Threading;
+
+namespace Domain.Aggregates.DealerAggregate.Contracts
 {
     public interface IDealerRepository
     {
-        Dealer GetById(int id);
+        Task<Dealer> GetByIdAsync(int specification, CancellationToken cancellationToken = default);
     }
 }

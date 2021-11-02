@@ -1,4 +1,5 @@
-﻿using Domain.Aggregates.CarAdAggregate;
+﻿using System;
+using Domain.Aggregates.CarAdAggregate;
 using Domain.Aggregates.DealerAggregate;
 using Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,11 @@ namespace Infrastructure.Persistence
             builder.ApplyConfiguration(new ManufacturerConfiguration());
 
             base.OnModelCreating(builder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.LogTo(Console.WriteLine);
         }
     }
 }

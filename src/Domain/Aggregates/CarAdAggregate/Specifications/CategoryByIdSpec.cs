@@ -2,7 +2,7 @@
 
 namespace Domain.Aggregates.CarAdAggregate.Specifications
 {
-    public class CategoryByIdSpec : Specification<Category>
+    public class CategoryByIdSpec : Specification<Category>, ISingleResultSpecification
     {
         public CategoryByIdSpec(int id)
         {

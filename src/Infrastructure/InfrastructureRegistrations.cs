@@ -2,6 +2,7 @@
 using Domain.Aggregates.DealerAggregate.Contracts;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
+using Infrastructure.Persistence.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ namespace Infrastructure
             services.AddDbContext<CarRentalDbContext>(c => c.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICarAdRepository, CarAdRepository>();
             services.AddScoped<IDealerRepository, DealerRepository>();
+            services.AddScoped(typeof(EfGenericRepository<>));
         }
     }
 }

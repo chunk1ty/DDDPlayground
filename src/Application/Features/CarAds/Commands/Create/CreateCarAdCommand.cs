@@ -35,9 +35,10 @@ namespace Application.Features.CarAds.Commands.Create
         private readonly ICarAdRepository _carAdRepository;
         private readonly IDealerRepository _dealerRepository;
 
-        public CreateCarAdCommandHandler(ICarAdRepository carAdRepository)
+        public CreateCarAdCommandHandler(ICarAdRepository carAdRepository, IDealerRepository dealerRepository)
         {
             _carAdRepository = carAdRepository;
+            _dealerRepository = dealerRepository;
         }
 
         public async Task<CreateCarAdResponse> Handle(CreateCarAdCommand request, CancellationToken cancellationToken)
@@ -53,10 +54,10 @@ namespace Application.Features.CarAds.Commands.Create
                                   request.PricePerDay,
                                   options);
 
-            Dealer dealer = _dealerRepository.GetById(request.DealerId);
+            Dealer dealer = await _dealerRepository.GetByIdAsync(request.DealerId, cancellationToken);
             dealer.AddCarAd(carAd);
-
-            // TODO commit transaction
+            
+            await _carAdRepository.Add(carAd, cancellationToken);
 
             return new CreateCarAdResponse(carAd.Id);
         }

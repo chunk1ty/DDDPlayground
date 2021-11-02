@@ -1,10 +1,9 @@
 ﻿using Ardalis.Specification.EntityFrameworkCore;
-using SharedKernel;
 
 namespace Infrastructure.Persistence.Repositories.Abstract
 {
     public class EfGenericRepository<TEntity> : RepositoryBase<TEntity>  
-        where TEntity : class, IAggregateRoot
+        where TEntity : class
     {
         public EfGenericRepository(CarRentalDbContext dbContext) 
             : base(dbContext)
