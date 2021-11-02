@@ -43,7 +43,7 @@ namespace Application.Features.CarAds.Commands.Create
 
         public async Task<CreateCarAdResponse> Handle(CreateCarAdCommand request, CancellationToken cancellationToken)
         {
-            Category category = await _carAdRepository.GetBySpec(new CategoryByIdSpec(request.CategoryId), cancellationToken);
+            Category category = await _carAdRepository.GetId(request.CategoryId, cancellationToken);
             var manufacturer = new Manufacturer(request.ManufacturerName);
             var options = new Options(request.HasClimateControl, request.NumberOfSeats, request.TransmissionType);
 

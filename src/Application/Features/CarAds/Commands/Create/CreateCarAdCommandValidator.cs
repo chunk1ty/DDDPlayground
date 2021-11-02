@@ -1,7 +1,6 @@
 ﻿using Domain.Aggregates.CarAdAggregate.Contracts;
 using FluentValidation;
 using System;
-using Domain.Aggregates.CarAdAggregate.Specifications;
 
 namespace Application.Features.CarAds.Commands.Create
 {
@@ -20,7 +19,7 @@ namespace Application.Features.CarAds.Commands.Create
                 .NotEmpty();
 
             RuleFor(c => c.CategoryId)
-                .MustAsync(async (categoryId, token) => await carAdRepository.GetBySpec(new CategoryByIdSpec(categoryId), token) != null)
+                .MustAsync(async (categoryId, token) => await carAdRepository.GetId(categoryId, token) != null)
                 .WithMessage("'{PropertyName}' does not exist.");
 
             RuleFor(c => c.ImageUrl)

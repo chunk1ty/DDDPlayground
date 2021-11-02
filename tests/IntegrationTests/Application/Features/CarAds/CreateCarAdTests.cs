@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Application.Features.CarAds.Commands.Create;
 using Domain.Aggregates.CarAdAggregate;
 using FluentAssertions;
@@ -9,21 +7,21 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using static System.Net.WebRequestMethods;
 
 namespace IntegrationTests.Application.Features.CarAds
 {
     [TestFixture]
-    public class CreateCarAdHandlerTests : BaseDatabaseFixture
+    public class CreateCarAdTests : BaseDatabaseFixture
     {
         [Test]
         public async Task Handle_WithCorrectCommand_ShouldCreateCarAd()
         {
             // Arrange
             IServiceScope scope = CreateScope();
-            var handler = scope.ServiceProvider.GetService<IRequestHandler<CreateCarAdCommand, CreateCarAdResponse>>();
+            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
             // Act
+            // Category and Dealer should be seed in advanced 
             var command = new CreateCarAdCommand()
             {
                 DealerId = 1,
@@ -37,7 +35,7 @@ namespace IntegrationTests.Application.Features.CarAds
                 ManufacturerName = "Volkswagen"
             };
 
-            var response = await handler.Handle(command, CancellationToken.None);
+            var response = await mediator.Send(command);
 
             // Assert
             using (var db = scope.ServiceProvider.GetRequiredService<CarRentalDbContext>())
@@ -53,5 +51,5 @@ namespace IntegrationTests.Application.Features.CarAds
                 carAd.Options.TransmissionType.Should().Be(TransmissionType.Automatic);
             }
         }
-}
+    }
 }
