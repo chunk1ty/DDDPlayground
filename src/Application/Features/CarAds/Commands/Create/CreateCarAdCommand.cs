@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Domain.Aggregates.CarAdAggregate;
 using Domain.Aggregates.CarAdAggregate.Contracts;
-using Domain.Aggregates.CarAdAggregate.Specifications;
 using Domain.Aggregates.DealerAggregate;
 using Domain.Aggregates.DealerAggregate.Contracts;
 using MediatR;
@@ -43,7 +42,7 @@ namespace Application.Features.CarAds.Commands.Create
 
         public async Task<CreateCarAdResponse> Handle(CreateCarAdCommand request, CancellationToken cancellationToken)
         {
-            Category category = await _carAdRepository.GetId(request.CategoryId, cancellationToken);
+            Category category = await _carAdRepository.GetCategoryById(request.CategoryId, cancellationToken);
             var manufacturer = new Manufacturer(request.ManufacturerName);
             var options = new Options(request.HasClimateControl, request.NumberOfSeats, request.TransmissionType);
 

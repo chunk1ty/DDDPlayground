@@ -51,8 +51,7 @@ namespace Domain.Aggregates.CarAdAggregate
                                 Category category,
                                 string imageUrl,
                                 decimal pricePerDay,
-                                Options options,
-                                bool isAvailable)
+                                Options options)
         {
             Validate(model, imageUrl, pricePerDay);
 
@@ -62,7 +61,6 @@ namespace Domain.Aggregates.CarAdAggregate
             ImageUrl = imageUrl;
             PricePerDay = pricePerDay;
             Options = options;
-            IsAvailable = isAvailable;
 
             AddDomainEvent(new CarAdUpdatedDomainEvent(this));
         }
@@ -71,7 +69,12 @@ namespace Domain.Aggregates.CarAdAggregate
         {
             IsAvailable = !IsAvailable;
 
-            AddDomainEvent(new CarAdUpdatedAvailabilityDomainEvent(this));
+            AddDomainEvent(new CarAdAvailabilityChangedDomainEvent(this));
+        }
+
+        public void Delete()
+        {
+            AddDomainEvent(new CarAdDeletedDomainEvent(this));
         }
 
         private void Validate(string model, string imageUrl, decimal pricePerDay)

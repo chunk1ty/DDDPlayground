@@ -19,7 +19,7 @@ namespace Application.Features.CarAds.Commands.Create
                 .NotEmpty();
 
             RuleFor(c => c.CategoryId)
-                .MustAsync(async (categoryId, token) => await carAdRepository.GetId(categoryId, token) != null)
+                .MustAsync(async (categoryId, token) => await carAdRepository.GetCategoryById(categoryId, token) != null)
                 .WithMessage("'{PropertyName}' does not exist.");
 
             RuleFor(c => c.ImageUrl)

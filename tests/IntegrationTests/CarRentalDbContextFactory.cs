@@ -15,7 +15,7 @@ namespace IntegrationTests
 
             optionsBuilder.UseSqlServer(configuration.GetValue<string>("ConnectionStrings:DatabaseConnection"));
 
-            return new CarRentalDbContext(optionsBuilder.Options);
+            return new CarRentalDbContext(optionsBuilder.Options, null);
         }
     }
 }

@@ -10,7 +10,7 @@ using Application.Features.CarAds.Commands.Delete;
 namespace IntegrationTests.Application.Features.CarAds
 {
     [TestFixture]
-    public class DeleteCarAdTests : BaseDatabaseFixture
+    public class DeleteCarAdTest : BaseDatabaseFixture
     {
         [Test]
         public async Task Handle_WithCorrectCommand_ShouldCreateCarAd()
@@ -22,7 +22,7 @@ namespace IntegrationTests.Application.Features.CarAds
             // Act
             var command = new DeleteCarAdCommand()
             {
-                Id = 8
+                Id = 10
             };
 
             var response = await mediator.Send(command);
