@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Aggregates\DealerAggregate\Specifications\**" />
+    <EmbeddedResource Remove="Aggregates\DealerAggregate\Specifications\**" />
+    <None Remove="Aggregates\DealerAggregate\Specifications\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" Version="3.3.0" />
     <PackageReference Include="Ardalis.Specification" Version="5.2.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />
@@ -12,10 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SharedKernel\SharedKernel.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Aggregates\DealerAggregate\Specifications\" />
   </ItemGroup>
 
 </Project>

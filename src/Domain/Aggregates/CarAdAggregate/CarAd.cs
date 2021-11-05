@@ -4,8 +4,11 @@ using SharedKernel;
 
 namespace Domain.Aggregates.CarAdAggregate
 {
-    public class CarAd : Entity<int>, IAggregateRoot 
+    public class CarAd : Entity<int>, IAggregateRoot
     {
+        //private int _dealerId;
+        //public int GetBuyerId => _dealerId;
+
         // used by EF
         protected CarAd()
         {

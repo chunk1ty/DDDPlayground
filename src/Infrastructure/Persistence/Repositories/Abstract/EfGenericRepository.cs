@@ -1,5 +1,7 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,6 +39,13 @@ namespace Infrastructure.Persistence.Repositories.Abstract
             _carRentalDbContext.Set<TEntity>().Remove(entity);
 
             await _carRentalDbContext.SaveEntitiesAsync(cancellationToken);
+        }
+
+        public virtual async Task<TResult[]> ArrayAsync<TResult>(ISpecification<TEntity, TResult> specification, CancellationToken cancellationToken = default)
+        {
+            var queryResult = await ApplySpecification(specification).ToArrayAsync(cancellationToken);
+
+            return specification.PostProcessingAction == null ? queryResult : specification.PostProcessingAction(queryResult).ToArray();
         }
     }
 }

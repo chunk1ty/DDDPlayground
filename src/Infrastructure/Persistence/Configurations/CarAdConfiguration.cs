@@ -35,6 +35,11 @@ namespace Infrastructure.Persistence.Configurations
                 .HasForeignKey("CategoryId")
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //builder.Property<int>("_dealerId")
+            //    .UsePropertyAccessMode(PropertyAccessMode.Field)
+            //    .HasColumnName("DealerId")
+            //    .IsRequired();
+
             builder.OwnsOne(c => c.Options, 
                 o =>
                 {

@@ -1,13 +1,13 @@
-﻿using Infrastructure.Persistence;
+﻿using System.Threading.Tasks;
+using Application.Features.CarAds.Commands.ChangeAvailability;
+using FluentAssertions;
+using Infrastructure.Persistence;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-using Application.Features.CarAds.Commands.ChangeAvailability;
 
-namespace IntegrationTests.Application.Features.CarAds
+namespace IntegrationTests.Application.Features.CarAds.Commands
 {
     [TestFixture]
     public class ChangeAvailabilityTest : BaseDatabaseFixture
@@ -22,7 +22,7 @@ namespace IntegrationTests.Application.Features.CarAds
             // Act
             var command = new ChangeAvailabilityCommand
             {
-                CarAdId = 10
+                CarAdId = 11
             };
 
             var response = await mediator.Send(command);
