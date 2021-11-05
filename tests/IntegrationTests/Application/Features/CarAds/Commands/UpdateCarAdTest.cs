@@ -24,7 +24,7 @@ namespace IntegrationTests.Application.Features.CarAds.Commands
             // Category and Dealer should be seeded in advanced 
             var command = new UpdateCarAdCommand()
             {
-                Id = 11,
+                Id = 12,
                 Model = "CX-5",
                 CategoryId = 1,
                 ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/a/a2/2010_Volkswagen_Passat_Highline_TDi_140_2.0_Front.jpg",

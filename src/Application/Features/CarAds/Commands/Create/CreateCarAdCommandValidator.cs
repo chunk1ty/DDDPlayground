@@ -6,7 +6,7 @@ namespace Application.Features.CarAds.Commands.Create
 {
     public class CreateCarAdCommandValidator : AbstractValidator<CreateCarAdCommand>
     {
-        public CreateCarAdCommandValidator(ICarAdRepository carAdRepository)
+        public CreateCarAdCommandValidator(ICarAdReadRepository carAdReadRepository)
         {
             RuleFor(c => c.ManufacturerName)
                 .MinimumLength(2)
@@ -19,7 +19,7 @@ namespace Application.Features.CarAds.Commands.Create
                 .NotEmpty();
 
             RuleFor(c => c.CategoryId)
-                .MustAsync(async (categoryId, token) => await carAdRepository.GetCategoryById(categoryId, token) != null)
+                .MustAsync(async (categoryId, token) => await carAdReadRepository.GetCategoryById(categoryId, token) != null)
                 .WithMessage("'{PropertyName}' does not exist.");
 
             RuleFor(c => c.ImageUrl)

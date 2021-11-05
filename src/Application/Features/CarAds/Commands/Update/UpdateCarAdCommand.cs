@@ -29,17 +29,19 @@ namespace Application.Features.CarAds.Commands.Update
 
     public class UpdateCarAdHandler : IRequestHandler<UpdateCarAdCommand, bool>
     {
-        private readonly ICarAdRepository _carAdRepository;
+        private readonly ICarAdWriteRepository _carAdWriteRepository;
+        private readonly ICarAdReadRepository _carAdReadRepository;
 
-        public UpdateCarAdHandler(ICarAdRepository carAdRepository)
+        public UpdateCarAdHandler(ICarAdWriteRepository carAdWriteRepository, ICarAdReadRepository carAdReadRepository)
         {
-            _carAdRepository = carAdRepository;
+            _carAdWriteRepository = carAdWriteRepository;
+            _carAdReadRepository = carAdReadRepository;
         }
 
         public async Task<bool> Handle(UpdateCarAdCommand request, CancellationToken cancellationToken)
         {
-            CarAd carAd = await _carAdRepository.GetCarAdById(request.Id, cancellationToken);
-            Category carAdCategory = await _carAdRepository.GetCategoryById(request.CategoryId, cancellationToken);
+            CarAd carAd = await _carAdReadRepository.GetCarAdById(request.Id, cancellationToken);
+            Category carAdCategory = await _carAdReadRepository.GetCategoryById(request.CategoryId, cancellationToken);
             // add more validations if required ...
 
             carAd.UpdateCarAd(new Manufacturer(request.ManufacturerName),
@@ -51,7 +53,7 @@ namespace Application.Features.CarAds.Commands.Update
                                           request.NumberOfSeats, 
                                           request.TransmissionType));
 
-            await _carAdRepository.Update(carAd, cancellationToken);
+            await _carAdWriteRepository.Update(carAd, cancellationToken);
 
             return true;
         }

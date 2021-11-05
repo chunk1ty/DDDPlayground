@@ -14,7 +14,8 @@ namespace Infrastructure
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<CarRentalDbContext>(c => c.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<ICarAdRepository, CarAdRepository>();
+            services.AddScoped<ICarAdWriteRepository, CarAdWriteRepository>();
+            services.AddScoped<ICarAdReadRepository, CarAdReadRepository>();
             services.AddScoped<IDealerRepository, DealerRepository>();
             services.AddScoped(typeof(EfGenericRepository<>));
         }

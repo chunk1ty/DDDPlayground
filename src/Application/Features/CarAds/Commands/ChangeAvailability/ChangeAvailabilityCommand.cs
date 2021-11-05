@@ -13,20 +13,22 @@ namespace Application.Features.CarAds.Commands.ChangeAvailability
 
     public class ChangeAvailabilityHandler : IRequestHandler<ChangeAvailabilityCommand, bool>
     {
-        private readonly ICarAdRepository _carAdRepository;
+        private readonly ICarAdWriteRepository _carAdWriteRepository;
+        private readonly ICarAdReadRepository _carAdReadRepository;
 
-        public ChangeAvailabilityHandler(ICarAdRepository carAdRepository)
+        public ChangeAvailabilityHandler(ICarAdReadRepository carAdReadRepository, ICarAdWriteRepository carAdWriteRepository)
         {
-            _carAdRepository = carAdRepository;
+            _carAdReadRepository = carAdReadRepository;
+            _carAdWriteRepository = carAdWriteRepository;
         }
 
         public async Task<bool> Handle(ChangeAvailabilityCommand request, CancellationToken cancellationToken)
         {
-            CarAd carAd = await _carAdRepository.GetCarAdById(request.CarAdId, cancellationToken);
+            CarAd carAd = await _carAdReadRepository.GetCarAdById(request.CarAdId, cancellationToken);
 
             carAd.ChangeAvailability();
 
-            await _carAdRepository.Update(carAd, cancellationToken);
+            await _carAdWriteRepository.Update(carAd, cancellationToken);
 
             return true;
         }

@@ -13,20 +13,22 @@ namespace Application.Features.CarAds.Commands.Delete
 
     public class DeleteCarAdCommandHandler : IRequestHandler<DeleteCarAdCommand, bool>
     {
-        private readonly ICarAdRepository _carAdRepository;
+        private readonly ICarAdWriteRepository _carAdWriteRepository;
+        private readonly ICarAdReadRepository _carAdReadRepository;
 
-        public DeleteCarAdCommandHandler(ICarAdRepository carAdRepository)
+        public DeleteCarAdCommandHandler(ICarAdWriteRepository carAdWriteRepository, ICarAdReadRepository carAdReadRepository)
         {
-            _carAdRepository = carAdRepository;
+            _carAdWriteRepository = carAdWriteRepository;
+            _carAdReadRepository = carAdReadRepository;
         }
 
         public async Task<bool> Handle(DeleteCarAdCommand request, CancellationToken cancellationToken)
         {
-            CarAd carAd = await _carAdRepository.GetCarAdById(request.Id, cancellationToken);
+            CarAd carAd = await _carAdReadRepository.GetCarAdById(request.Id, cancellationToken);
 
             carAd.Delete();
 
-            await _carAdRepository.Delete(carAd, cancellationToken);
+            await _carAdWriteRepository.Delete(carAd, cancellationToken);
 
             return true;
         }

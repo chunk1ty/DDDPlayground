@@ -11,16 +11,16 @@ namespace Application.Features.CarAds.Queries.GetCarAdCategory
 
     public class GetCarAdCategoryQueryHandler : IRequestHandler<GetCarAdCategoryQuery, GetCarAdCategoryResponse[]>
     {
-        private readonly ICarAdRepository _carAdRepository;
+        private readonly ICarAdReadRepository _carAdReadRepository;
 
-        public GetCarAdCategoryQueryHandler(ICarAdRepository carAdRepository)
+        public GetCarAdCategoryQueryHandler(ICarAdReadRepository carAdReadRepository)
         {
-            _carAdRepository = carAdRepository;
+            _carAdReadRepository = carAdReadRepository;
         }
 
         public Task<GetCarAdCategoryResponse[]> Handle(GetCarAdCategoryQuery request, CancellationToken cancellationToken)
         {
-            return _carAdRepository.GetCarAdListAsync(new CarAdCategoriesSpec(), cancellationToken);
+            return _carAdReadRepository.GetCarAdCategoriesListAsync(new CarAdCategoriesSpec(), cancellationToken);
         }
     }
 }

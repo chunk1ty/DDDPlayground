@@ -22,7 +22,7 @@ namespace IntegrationTests.Application.Features.CarAds.Commands
             // Act
             var command = new DeleteCarAdCommand()
             {
-                Id = 10
+                Id = 11
             };
 
             var response = await mediator.Send(command);

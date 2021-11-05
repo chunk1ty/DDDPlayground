@@ -31,18 +31,20 @@ namespace Application.Features.CarAds.Commands.Create
 
     public class CreateCarAdCommandHandler : IRequestHandler<CreateCarAdCommand, CreateCarAdResponse>
     {
-        private readonly ICarAdRepository _carAdRepository;
+        private readonly ICarAdWriteRepository _carAdWriteRepository;
         private readonly IDealerRepository _dealerRepository;
+        private readonly ICarAdReadRepository _carAdReadRepository;
 
-        public CreateCarAdCommandHandler(ICarAdRepository carAdRepository, IDealerRepository dealerRepository)
+        public CreateCarAdCommandHandler(ICarAdWriteRepository carAdWriteRepository, IDealerRepository dealerRepository, ICarAdReadRepository carAdReadRepository)
         {
-            _carAdRepository = carAdRepository;
+            _carAdWriteRepository = carAdWriteRepository;
             _dealerRepository = dealerRepository;
+            _carAdReadRepository = carAdReadRepository;
         }
 
         public async Task<CreateCarAdResponse> Handle(CreateCarAdCommand request, CancellationToken cancellationToken)
         {
-            Category category = await _carAdRepository.GetCategoryById(request.CategoryId, cancellationToken);
+            Category category = await _carAdReadRepository.GetCategoryById(request.CategoryId, cancellationToken);
             var manufacturer = new Manufacturer(request.ManufacturerName);
             var options = new Options(request.HasClimateControl, request.NumberOfSeats, request.TransmissionType);
 
@@ -56,7 +58,7 @@ namespace Application.Features.CarAds.Commands.Create
             Dealer dealer = await _dealerRepository.GetByIdAsync(request.DealerId, cancellationToken);
             dealer.AddCarAd(carAd);
             
-            await _carAdRepository.Add(carAd, cancellationToken);
+            await _carAdWriteRepository.Add(carAd, cancellationToken);
 
             return new CreateCarAdResponse(carAd.Id);
         }
